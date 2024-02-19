@@ -24,6 +24,12 @@ msg_font = pygame.font.SysFont("calibri", 50)
 clock = pygame.time.Clock()  # Sets the speed at which the snake moves
 
 
+# Draw the snake
+def draw_snake(snake_list):
+    print(f"Snake List: {snake_list}") # for testing purposes
+    for i in snake_list:
+        pygame.draw.rect(screen, teal, [i[0], i[1], 20, 20])
+
 def message(msg, txt_colour, bkgd_colour):
     txt = msg_font.render(msg, True, txt_colour, bkgd_colour)
 
@@ -42,6 +48,8 @@ def game_loop():
 
     snake_x_change = 0  # holds the value change of the x co ordinant
     snake_y_change = 0  # holds the value change of the y co ordinant
+    snake_list = []
+    snake_length = 1
 
     # Setting a random position for the food
     food_x = round(random.randrange(20, 1000 - 20) / 20) * 20
@@ -88,16 +96,14 @@ def game_loop():
                             if event.key == pygame.K_r:
                                 end = True, game_loop()
 
-                        # If user presses the space bar the game continues
+                            # If user presses the space bar the game continues
                             if event.key == pygame.K_SPACE:
                                 end = True
 
-                        # If the user presses 'Q' game quits
+                            # If the user presses 'Q' game quits
                             if event.key == pygame.K_q:
                                 quit_game = True
                                 end = True
-
-
 
             # Handling snake movement
             if event.type == pygame.KEYDOWN:
@@ -123,7 +129,10 @@ def game_loop():
         screen.fill(green)  # Changes background to green
 
         # Create the snake body (rectangle)
-        pygame.draw.rect(screen, teal, [snake_x, snake_y, 20, 20])
+        snake_head = [snake_x, snake_y]
+        snake_list.append(snake_head)
+        if len(snake_list) > snake_length:
+            del sn
         pygame.display.update()
 
         # Create circle for the food
