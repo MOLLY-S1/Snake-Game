@@ -132,18 +132,38 @@ def game_loop():
         snake_head = [snake_x, snake_y]
         snake_list.append(snake_head)
         if len(snake_list) > snake_length:
-            del sn
+            del snake_list[0]
+
+        for x in snake_list[:-1]:
+            if x == snake_head:
+                game_over = True
+
+        draw_snake(snake_list)
+
         pygame.display.update()
 
         # Create circle for the food
         pygame.draw.circle(screen, red, [food_x, food_y], 10)
         pygame.display.update()
 
+        # Collision detetection (test if snake touches food)
+        # Print lines are for testing
+        print(f"Snake X: {snake_x}")
+        print(f"Snake y: {snake_y}")
+        print(f"Food x: {food_x}")
+        print(f"Food y: {food_y}")
+        print("\n\n")
+
+
+
         # Collision detection (test if snake touches food)
         if snake_x == food_x - 10 and snake_y - 10:
             # Set new random position if snake touches it
             food_x = round(random.randrange(20, 1000 - 20) / 20) * 20
             food_y = round(random.randrange(20, 650 - 20) / 20) * 20
+
+            # Increase the length of the snake (by original size)
+            snake_length += 1
 
         clock.tick(5)  # sets the speed which each iteration of the game
         # runs the in frames per second
