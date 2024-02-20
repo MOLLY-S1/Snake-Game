@@ -26,9 +26,10 @@ clock = pygame.time.Clock()  # Sets the speed at which the snake moves
 
 # Draw the snake
 def draw_snake(snake_list):
-    print(f"Snake List: {snake_list}") # for testing purposes
+    print(f"Snake List: {snake_list}")  # for testing purposes
     for i in snake_list:
         pygame.draw.rect(screen, teal, [i[0], i[1], 20, 20])
+
 
 def message(msg, txt_colour, bkgd_colour):
     txt = msg_font.render(msg, True, txt_colour, bkgd_colour)
@@ -43,8 +44,8 @@ def game_loop():
     game_over = False
 
     # Snake will be 20 by 20 pixels
-    snake_x = 490  # Centre point horizontally
-    snake_y = 315  # Centre point vertically
+    snake_x = 480  # Centre point horizontally
+    snake_y = 305  # Centre point vertically
 
     snake_x_change = 0  # holds the value change of the x co ordinant
     snake_y_change = 0  # holds the value change of the y co ordinant
@@ -140,13 +141,12 @@ def game_loop():
 
         draw_snake(snake_list)
 
-
         # Using a sprite (from - Create circle for the food) to represent food
         food = pygame.Rect(food_x, food_y, 20, 20)
         apple = pygame.image.load('apple_3.png').convert_alpha()
         resized_apple = pygame.transform.smoothscale(apple, [20, 20])
         screen.blit(resized_apple, food)
-        
+
         pygame.display.update()
 
         # Collision detetection (test if snake touches food)
@@ -157,13 +157,13 @@ def game_loop():
         print(f"Food y: {food_y}")
         print("\n\n")
 
-
-
         # Collision detection (test if snake touches food)
-        if snake_x == food_x - 10 and snake_y - 10:
+        if snake_x == food_x and snake_y == food_y:
             # Set new random position if snake touches it
             food_x = round(random.randrange(20, 1000 - 20) / 20) * 20
             food_y = round(random.randrange(20, 650 - 20) / 20) * 20
+            # For testing purposes
+            print("Got it!")
 
             # Increase the length of the snake (by original size)
             snake_length += 1
