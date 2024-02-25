@@ -151,6 +151,13 @@ def game_loop():
         score = snake_length - 1  # Score excludes snake head
         player_score(score, red)
 
+        # Link the speed to the score, increasing difficulty
+        if score > 3:
+            speed = score
+        else:
+            speed = 3
+
+
         # Using a sprite (from - Create circle for the food) to represent food
         food = pygame.Rect(food_x, food_y, 20, 20)
         apple = pygame.image.load('apple_3.png').convert_alpha()
@@ -178,7 +185,7 @@ def game_loop():
             # Increase the length of the snake (by original size)
             snake_length += 1
 
-        clock.tick(5)  # sets the speed which each iteration of the game
+        clock.tick(speed)  # sets the speed which each iteration of the game
         # runs the in frames per second
 
     pygame.quit()
