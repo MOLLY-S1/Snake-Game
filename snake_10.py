@@ -4,7 +4,8 @@ import random
 
 pygame.init()
 
-screen = pygame.display.set_mode((1000, 650))
+# Create the game display
+screen = pygame.display.set_mode((1000, 750))  # changed coords
 game_icon = pygame.image.load('snake_icon.png')
 pygame.display.set_icon(game_icon)
 pygame.display.set_caption("Snake Game - By Molly Sankey")
@@ -31,21 +32,23 @@ def draw_snake(snake_list):
         pygame.draw.rect(screen, teal, [i[0], i[1], 20, 20])
 
 
+# To put messages on the screen
 def message(msg, txt_colour, bkgd_colour):
     txt = msg_font.render(msg, True, txt_colour, bkgd_colour)
 
     # Centre rectangle: 1000/2 = 500 and 650/2 = 325
-    text_box = txt.get_rect(center=(500, 325))
+    text_box = txt.get_rect(center=(500, 360))  # changed coords
     screen.blit(txt, text_box)
 
 
+# Function to run the main game loop
 def game_loop():
     quit_game = False
     game_over = False
 
     # Snake will be 20 by 20 pixels
     snake_x = 480  # Centre point horizontally
-    snake_y = 305  # Centre point vertically
+    snake_y = 340  # Centre point vertically                           # changed coords
 
     snake_x_change = 0  # holds the value change of the x co ordinant
     snake_y_change = 0  # holds the value change of the y co ordinant
@@ -54,9 +57,8 @@ def game_loop():
 
     # Setting a random position for the food
     food_x = round(random.randrange(20, 1000 - 20) / 20) * 20
-    food_y = round(random.randrange(20, 650 - 20) / 20) * 20
+    food_y = round(random.randrange(20, 720 - 20) / 20) * 20  # changed coords
 
-    # Loop to keep screen open until user presses x
     while not quit_game:
         # give user the option to quit or play again when they die
         while game_over:
@@ -76,11 +78,9 @@ def game_loop():
 
         # Handling response if user presses 'X' - giving them the option to
         #  quit, start a new game, or keep playing
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                instructions = "Exit: X to quit, space bar to resume, " \
-                               "R to reset"
+                instructions = "Exit: X to quit, space bar to resume, R toeset"
                 message(instructions, green, black)
                 pygame.display.update()
 
@@ -121,7 +121,7 @@ def game_loop():
                     snake_x_change = 0
                     snake_y_change = 20
 
-        if snake_x >= 1000 or snake_x < 0 or snake_y >= 650 or snake_y < 0:
+        if snake_x >= 1000 or snake_x < 0 or snake_y >= 720 or snake_y < 0:  # changed coords
             game_over = True
 
         snake_x += snake_x_change
@@ -152,8 +152,8 @@ def game_loop():
         # Collision detetection (test if snake touches food)
         # Print lines are for testing
         print(f"Snake X: {snake_x}")
-        print(f"Snake y: {snake_y}")
         print(f"Food x: {food_x}")
+        print(f"Snake y: {snake_y}")
         print(f"Food y: {food_y}")
         print("\n\n")
 
@@ -161,7 +161,7 @@ def game_loop():
         if snake_x == food_x and snake_y == food_y:
             # Set new random position if snake touches it
             food_x = round(random.randrange(20, 1000 - 20) / 20) * 20
-            food_y = round(random.randrange(20, 650 - 20) / 20) * 20
+            food_y = round(random.randrange(20, 720 - 20) / 20) * 20  # changed coords
             # For testing purposes
             print("Got it!")
 
@@ -177,3 +177,4 @@ def game_loop():
 
 # Main Routine
 game_loop()
+
