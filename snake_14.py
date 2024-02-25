@@ -38,11 +38,30 @@ def load_high_score():
     return value
 
 
-# Display players score
-def player_score(score, score_colour):
+# Function to update record of the highest score
+def update_high_score(score, high_score):
+    if int(score) > int(high_score):
+        return score
+    else:
+        return high_score
+
+
+# Save updated high score if player beats it
+def save_high_score(high_score):
+    high_score_file = open("HI_ score.txt", 'w')
+    high_score_file.write(str(high_score))
+    high_score_file.close()
+
+
+# Display players score and high score
+def player_score(score, score_colour, hi_score):
+    # Current score
     display_score = score_font.render(f"Score: {score}", True, score_colour)
     screen.blit(display_score, (800, 20))  # Coordinates for top right
 
+    # High Score
+    display_score = score_font.render(f"High Score: {hi_score}", True, score_colour)
+    screen.blit(display_score, (10,10)) # coordinats for top left
 
 # Draw the snake
 def draw_snake(snake_list):
@@ -80,10 +99,11 @@ def game_loop():
 
     # Load the high score
     high_score = load_high_score()
-    print(f"high_score test: {high_score}") # for testing purposed
+
     while not quit_game:
         # give user the option to quit or play again when they die
         while game_over:
+            save_high_score(high_score)
             screen.fill(green)
             message("YOU DIED! Press 'Q' to Quit or 'A' to Play Again", black,
                     green)
@@ -165,7 +185,10 @@ def game_loop():
 
         # Keeping track of the players score
         score = snake_length - 1  # Score excludes snake head
-        player_score(score, red)
+        player_score(score, red, high_score)
+
+        # Get high score
+        high_score = update_high_score(score, high_score)
 
         # Link the speed to the score, increasing difficulty
         if score > 3:
