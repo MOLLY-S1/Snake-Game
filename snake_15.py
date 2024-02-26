@@ -207,13 +207,11 @@ def game_loop():
 
         pygame.display.update()
 
-
         # Collision detection (test if snake touches food)
         if snake_x == food_x and snake_y == food_y:
             # Set new random position if snake touches it
             food_x = round(random.randrange(20, 1000 - 20) / 20) * 20
             food_y = round(random.randrange(20, 720 - 20) / 20) * 20  # changed coords
-            
 
             # Increase the length of the snake (by original size)
             snake_length += 1
