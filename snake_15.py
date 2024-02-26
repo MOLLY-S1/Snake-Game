@@ -66,7 +66,6 @@ def player_score(score, score_colour, hi_score):
 
 # Draw the snake
 def draw_snake(snake_list):
-    print(f"Snake List: {snake_list}")  # for testing purposes
     for i in snake_list:
         pygame.draw.rect(screen, teal, [i[0], i[1], 20, 20])
 
@@ -208,21 +207,13 @@ def game_loop():
 
         pygame.display.update()
 
-        # Collision detetection (test if snake touches food)
-        # Print lines are for testing
-        print(f"Snake X: {snake_x}")
-        print(f"Food x: {food_x}")
-        print(f"Snake y: {snake_y}")
-        print(f"Food y: {food_y}")
-        print("\n\n")
 
         # Collision detection (test if snake touches food)
         if snake_x == food_x and snake_y == food_y:
             # Set new random position if snake touches it
             food_x = round(random.randrange(20, 1000 - 20) / 20) * 20
             food_y = round(random.randrange(20, 720 - 20) / 20) * 20  # changed coords
-            # For testing purposes
-            print("Got it!")
+            
 
             # Increase the length of the snake (by original size)
             snake_length += 1
